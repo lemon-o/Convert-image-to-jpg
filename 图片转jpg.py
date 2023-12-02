@@ -19,7 +19,10 @@ def convert_images_to_jpg(input_folder, output_folder):
             # 如果是PSD文件，则使用psd-tools库处理
             if filename.endswith('.psd'):
                 psd = PSDImage.open(input_path)
-                image = psd.compose()
+                image = psd.compose()              
+                # 将 RGBA 转换为 RGB
+                if image.mode == "RGBA":
+                    image = image.convert("RGB")            
                 image.save(output_path, "JPEG")
 
             else:
